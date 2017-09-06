@@ -33,14 +33,17 @@ var data = {
 
 // FUNCTIONS TO WRITE
 
-// 1 List everyone and for each of them, list the names of who they follow and who follows them
+// 1* List everyone and for each of them, list the names of who they follow and who follows them
 // 2 Identify who follows the most people
 // 3 Identify who has the most followers
-// 4 Identify who has the most followers over 30
-// 5 Identify who follows the most people over 30
-// 6 List those who follow someone that doesn't follow them back
-// 7 List everyone and their reach (sum of # of followers and # of followers of followers)
+// 4* Identify who has the most followers over 30
+// 5* Identify who follows the most people over 30
+// 6* List those who follow someone that doesn't follow them back
+// 7* List everyone and their reach (sum of # of followers and # of followers of followers)
 
+
+
+//FUNC 1
 let whoFollowsWho = function() {
   for (member in data)
   {
@@ -57,7 +60,11 @@ let whoFollowsWho = function() {
 //TEST 1
 // whoFollowsWho();
 
-let mostFollowers = function() {
+
+
+
+//FUNC 2
+let followMost = function() {
   let max = 0;
   let followBoss = '';
   for (member in data)
@@ -81,11 +88,52 @@ let mostFollowers = function() {
 }
 
 //TEST 2
-mostFollowers();
+// followMost();
+
+
+//This function is used in other functions to organize data for easier searching
+let howManyILead = function() {
+    let leader = {};
+    for (member in data)
+  {
+    let iFollow = data[member].follows;
+    for (let i = 0; i < iFollow.length; i++)
+    {
+      if (leader[iFollow[i]])
+      {
+        leader[iFollow[i]]++;
+      }
+      else
+      {
+        leader[iFollow[i]] = 1;
+      }
+    }
+  }
+
+  return leader;
+}
 
 
 
+//FUNC 3
+let biggestLeader = function () {
+  let max = 0;
+  let leadBoss = '';
+  let leader = howManyILead();
+  for (member in leader)
+  {
+    if (leader[member] > max)
+    {
+      max = leader[member];
+      leadBoss = member;
+    }
+  }
+  console.log(data[leadBoss].name, " is followed by the most people. (", max, " people)");
+}
 
+
+//TEST 3
+// biggestLeader();
 
 
 
