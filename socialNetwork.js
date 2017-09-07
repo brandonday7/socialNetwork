@@ -1,5 +1,3 @@
-//new stuff
-
 var data = {
   f01: {
     name: "Alice",
@@ -139,6 +137,37 @@ let biggestLeader = function () {
 
 
 
+//FUNC 5
+let most30Followers = function () {
+  let max = 0;
+  let leadBoss = '';
+  for (member in data)
+  {
+    let personalMax = 0;
+    let iFollow = data[member].follows;
+    for (let i = 0; i < iFollow.length; i++)
+    {
+      if (data[iFollow[i]].age < 30)
+      {
+        continue;
+      }
+      else
+      {
+        personalMax++;
+      }
+    }
 
+    if (personalMax > max)
+    {
+      max = personalMax;
+      leadBoss = data[member].name;
+    }
+
+  }
+    console.log(leadBoss, " follows the most people over 30. (", max, " people)");
+
+}
+
+most30Followers();
 
 
