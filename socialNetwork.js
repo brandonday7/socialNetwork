@@ -37,34 +37,69 @@ var data = {
 // 2 Identify who follows the most people
 // 3 Identify who has the most followers
 // 4* Identify who has the most followers over 30
-// 5* Identify who follows the most people over 30
+// 5 Identify who follows the most people over 30
 // 6* List those who follow someone that doesn't follow them back
 // 7* List everyone and their reach (sum of # of followers and # of followers of followers)
 
 
-
+//test test
 //FUNC 1
-let whoFollowsWho = function() {
+let func1 = function() {
   for (member in data)
   {
     console.log(data[member].name, " follows: ");
     let iFollow = data[member].follows;
+    let followArray = [];
+
 
     for (let i = 0; i < iFollow.length; i++)
     {
-        //ahhhh whaaaaaa
+        followArray.push(data[iFollow[i]].name);
     }
+    console.log(followArray);
+
+
+
+    console.log("and is followd by: ");
+
+    addOnLeads();
+
+
   }
 }
 
 //TEST 1
-// whoFollowsWho();
+// func1();
+
+let addOnLeads = function() {
+  let leadArray = [];
+  for (member in data)
+  {
+    let iFollow = data[member].follows;
+    for (let i = 0; i < iFollow.length; i++)
+    {
+      currentPerson = iFollow[i];
+      if (!data[currentPerson].leads)
+      {
+        data[currentPerson].leads = [data[member]];
+      }
+      else
+      {
+        data[currentPerson].leads.push(data[member]);
+      }
+
+    }
+
+  }
+  console.log(data)
+}
+addOnLeads()
 
 
 
 
 //FUNC 2
-let followMost = function() {
+let func2 = function() {
   let max = 0;
   let followBoss = '';
   for (member in data)
@@ -88,7 +123,7 @@ let followMost = function() {
 }
 
 //TEST 2
-// followMost();
+// func2();
 
 
 //This function is used in other functions to organize data for easier searching
@@ -116,7 +151,7 @@ let howManyILead = function() {
 
 
 //FUNC 3
-let biggestLeader = function () {
+let func3 = function () {
   let max = 0;
   let leadBoss = '';
   let leader = howManyILead();
@@ -133,12 +168,27 @@ let biggestLeader = function () {
 
 
 //TEST 3
-// biggestLeader();
+// func3();
+
+
+
+
+//FUNC 4
+let func4 = function() {
+  let max = 0;
+  let leadBoss = '';
+  for (member in data)
+  {
+
+  }
+
+}
+
 
 
 
 //FUNC 5
-let most30Followers = function () {
+let func5 = function () {
   let max = 0;
   let leadBoss = '';
   for (member in data)
@@ -168,6 +218,7 @@ let most30Followers = function () {
 
 }
 
-most30Followers();
+//TEST FUNC 5
+// func5();
 
 
