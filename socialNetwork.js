@@ -278,5 +278,5 @@ let func7 = function() {
   }
 }
 
-func7();
+// func7();
 
