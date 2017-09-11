@@ -42,6 +42,7 @@ var data = {
 // 7* List everyone and their reach (sum of # of followers and # of followers of followers)
 
 //this function appends an array to the data containing who follows who
+
 let addOnLeads = function() {
   let leadArray = [];
   for (member in data)
@@ -60,10 +61,12 @@ let addOnLeads = function() {
       }
 
     }
+
  } //data now contains a "leads" key which contains the members that follow each person
 
-
 }
+
+
 
 
 //FUNC 1
@@ -92,7 +95,7 @@ let func1 = function() {
 }
 
 //TEST 1
-func1();
+// func1();
 
 
 
@@ -222,7 +225,35 @@ let func5 = function () {
 //FUNC6
 
 let func6 = function() {
+  addOnLeads();
+  console.log("The following people follow people that don't follow them back: ");
 
+  for (member in data) {
+    let obj = {};
+    let iFollow = [];
+    let iLead = [];
+    for (person in data[member].follows) {
+      iFollow.push(data[data[member].follows[person]].name);
+    }
+
+  for (follower of data[member].leads) {
+    iLead.push(follower.name);
+  }
+
+  for (x of iFollow) {
+    obj[x] = x;
+  }
+
+  for (y of iLead) {
+    if (obj[y]) {
+      delete obj[y];
+    }
+  }
+  if (Object.keys(obj).length !== 0) {
+    console.log(data[member].name);
+  }
+  }
 }
 
+// func6();
 
