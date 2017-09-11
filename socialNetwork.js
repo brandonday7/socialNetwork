@@ -38,7 +38,7 @@ var data = {
 // 3 Identify who has the most followers
 // 4 Identify who has the most followers over 30
 // 5 Identify who follows the most people over 30
-// 6* List those who follow someone that doesn't follow them back
+// 6 List those who follow someone that doesn't follow them back
 // 7* List everyone and their reach (sum of # of followers and # of followers of followers)
 
 //this function appends an array to the data containing who follows who
@@ -256,4 +256,27 @@ let func6 = function() {
 }
 
 // func6();
+
+
+
+//FUNC7
+
+let func7 = function() {
+  addOnLeads();
+  let reach = 0;
+  let innerReach = 0;
+
+  for (member in data) {
+    reach = 0;
+    innerReach = 0;
+    reach += Object.keys(data[member].leads).length;
+
+    for (innerFollower of data[member].leads) {
+      innerReach += Object.keys(innerFollower.leads).length;
+    }
+    console.log(data[member].name, `'s Reach: `,reach+innerReach);
+  }
+}
+
+func7();
 
