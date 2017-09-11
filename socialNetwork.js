@@ -33,44 +33,15 @@ var data = {
 
 // FUNCTIONS TO WRITE
 
-// 1* List everyone and for each of them, list the names of who they follow and who follows them
+// 1 List everyone and for each of them, list the names of who they follow and who follows them
 // 2 Identify who follows the most people
 // 3 Identify who has the most followers
-// 4* Identify who has the most followers over 30
+// 4 Identify who has the most followers over 30
 // 5 Identify who follows the most people over 30
 // 6* List those who follow someone that doesn't follow them back
 // 7* List everyone and their reach (sum of # of followers and # of followers of followers)
 
-
-//test test
-//FUNC 1
-let func1 = function() {
-  for (member in data)
-  {
-    console.log(data[member].name, " follows: ");
-    let iFollow = data[member].follows;
-    let followArray = [];
-
-
-    for (let i = 0; i < iFollow.length; i++)
-    {
-        followArray.push(data[iFollow[i]].name);
-    }
-    console.log(followArray);
-
-
-
-    console.log("and is followd by: ");
-
-    addOnLeads();
-
-
-  }
-}
-
-//TEST 1
-// func1();
-
+//this function appends an array to the data containing who follows who
 let addOnLeads = function() {
   let leadArray = [];
   for (member in data)
@@ -89,11 +60,40 @@ let addOnLeads = function() {
       }
 
     }
+ } //data now contains a "leads" key which contains the members that follow each person
 
-  }
-  console.log(data)
+
 }
-addOnLeads()
+
+
+//FUNC 1
+let func1 = function() {
+  addOnLeads();
+
+  for (member in data)
+  {
+    console.log(data[member].name, " follows: ");
+    let iFollow = data[member].follows;
+    let followArray = [];
+    let leadArray = [];
+
+
+    for (let i = 0; i < iFollow.length; i++)
+    {
+        followArray.push(data[iFollow[i]].name);
+    }
+    console.log(followArray);
+
+    for (let j = 0; j < data[member].leads.length; j++) {
+      leadArray.push(data[member].leads[j].name);
+    }
+    console.log("and is followd by: ", leadArray);
+  }
+}
+
+//TEST 1
+func1();
+
 
 
 
@@ -126,44 +126,24 @@ let func2 = function() {
 // func2();
 
 
-//This function is used in other functions to organize data for easier searching
-let howManyILead = function() {
-    let leader = {};
-    for (member in data)
-  {
-    let iFollow = data[member].follows;
-    for (let i = 0; i < iFollow.length; i++)
-    {
-      if (leader[iFollow[i]])
-      {
-        leader[iFollow[i]]++;
-      }
-      else
-      {
-        leader[iFollow[i]] = 1;
-      }
-    }
-  }
 
-  return leader;
-}
 
 
 
 //FUNC 3
 let func3 = function () {
-  let max = 0;
-  let leadBoss = '';
-  let leader = howManyILead();
-  for (member in leader)
-  {
-    if (leader[member] > max)
-    {
-      max = leader[member];
-      leadBoss = member;
+  addOnLeads();
+  let absoluteMax = 0;
+  let leader = '';
+  for (member in data) {
+    let personalMax = data[member].leads.length;
+    if (personalMax > absoluteMax) {
+      absoluteMax = personalMax;
+      leader = data[member].name;
     }
   }
-  console.log(data[leadBoss].name, " is followed by the most people. (", max, " people)");
+
+  console.log(leader, " is followed by the most people. (", absoluteMax, " people)");
 }
 
 
@@ -175,15 +155,30 @@ let func3 = function () {
 
 //FUNC 4
 let func4 = function() {
-  let max = 0;
+  addOnLeads()
+  let absoluteMax = 0;
+  let memberMax = 0;
   let leadBoss = '';
   for (member in data)
   {
+    memberMax = 0;
+    for (index in data[member].leads)
+    {
+      let age = data[member].leads[index].age;
+      if (age > 30) {
+        memberMax++;
+      }
+    }
+    if (memberMax > absoluteMax) {
+      absoluteMax = memberMax;
+      leadBoss = data[member].name;
 
+    }
   }
+  console.log("The person with the most followers over 30 is ", leadBoss, "(", absoluteMax, " followers)");
 
 }
-
+// func4();
 
 
 
@@ -220,5 +215,14 @@ let func5 = function () {
 
 //TEST FUNC 5
 // func5();
+
+
+
+
+//FUNC6
+
+let func6 = function() {
+
+}
 
 
